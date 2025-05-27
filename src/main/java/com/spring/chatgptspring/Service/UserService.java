@@ -1,5 +1,6 @@
 package com.spring.chatgptspring.Service;
 
+import com.spring.chatgptspring.Exception.UserNotFoundException;
 import com.spring.chatgptspring.Model.User;
 import com.spring.chatgptspring.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class UserService {
 
     public User getUserById(long id) {
         return userRepository.findById(id)
-                .orElse(null); // 或抛异常，自定义返回404等
+                .orElseThrow(()->new UserNotFoundException("用户未找到"+id)); // 或抛异常，自定义返回404等
     }
 
     public User addUser(User user) {
